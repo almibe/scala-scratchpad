@@ -1,12 +1,15 @@
-val dottyVersion = "0.24.0-RC1"
+import Dependencies._
 
-lazy val root = project
-  .in(file("."))
+ThisBuild / scalaVersion     := "2.13.2"
+ThisBuild / version          := "0.1.0-SNAPSHOT"
+ThisBuild / organization     := "dev.almibe"
+ThisBuild / organizationName := "scalascratchpad"
+
+lazy val root = (project in file("."))
   .settings(
-    name := "dotty-simple",
-    version := "0.1.0",
-
-    scalaVersion := dottyVersion,
-
-    libraryDependencies += "com.novocode" % "junit-interface" % "0.11" % "test"
+    name := "scala-scratchpad",
+    libraryDependencies += "org.rocksdb" % "rocksdbjni" % "6.6.4",
+    libraryDependencies += scalaTest % Test
   )
+
+// See https://www.scala-sbt.org/1.x/docs/Using-Sonatype.html for instructions on how to publish to Sonatype.
