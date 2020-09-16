@@ -1,6 +1,33 @@
 package scalascratchpad.monix
 
-@main def main() = println("monix")
+import monix.reactive.Observable
+import monix.execution.Scheduler.Implicits.global
+
+
+object Main {
+  def x(i: (Long, Long)): Unit = {
+    i._1 * i._2
+  }
+  
+  def main(args: Array[String]) = {
+    val i = Observable.range(0,10000, 1).zip(Observable.range(0,10000, 1).take(2).repeat)
+    println(i.toListL.runSyncUnsafe())
+//    i.foreachL(println).runSyncUnsafe()
+    val start = System.currentTimeMillis()
+    val ii = Observable.range(0,10000, 1).zip(Observable.range(0,10000, 1).take(2).repeat)
+    println(ii.toListL.runSyncUnsafe().toSet.size)
+    //println(ii)
+    val stop = System.currentTimeMillis()
+    println(s"*** ${stop - start}")
+    val start2 = System.currentTimeMillis()
+    val ii2 = Observable.range(0,10000, 1).zip(Observable.range(0,10000, 1).take(2).repeat)
+    println(ii2.toListL.runSyncUnsafe().toSet.size)
+    //println(ii)
+    val stop2 = System.currentTimeMillis()
+    println(s"*** ${stop2 - start2}")
+  }
+}
+
 
 //import java.nio.ByteBuffer
 //
